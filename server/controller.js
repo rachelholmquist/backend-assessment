@@ -1,6 +1,8 @@
-module.exports = {
+const mantras = require('./db.json');
+const fortunes = ["All the effort you are making will ultimately pay off.", "If you wish to see the best in others, show the best of yourself.", 
+"Place special emphasis on old friendship.", "We first make our habits, and then our habits make us."];
 
-    getCompliment: (req, res) => {
+    function getCompliment(req, res) {
         const compliments = ["Gee, you're a smart cookie!", "Cool shirt!", "Your Javascript skills are stellar."];
       
         // choose random compliment
@@ -8,15 +10,22 @@ module.exports = {
         let randomCompliment = compliments[randomIndex];
       
         res.status(200).send(randomCompliment);
-    },
-    getFortune: (req, res) => {
-        const fortunes = ["All the effort you are making will ultimately pay off.", "If you wish to see the best in others, show the best of yourself.", "Place special emphasis on old friendship.", "We first make our habits, and then our habits make us."];
+    };
+    function getFortune(req, res) {
       
-        // choose random compliment
         let randomIndex = Math.floor(Math.random() * fortunes.length);
         let randomFortune = fortunes[randomIndex];
       
         res.status(200).send(randomFortune);
+    };
+    
+    function showMantras(req, res) {
+        res.status(200).send(mantras);
     }
 
+
+module.exports = {
+    getCompliment,
+    getFortune,
+    showMantras,
 }
