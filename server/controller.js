@@ -15,11 +15,16 @@ const fortunes = ["All the effort you are making will ultimately pay off.", "If 
       
         let randomIndex = Math.floor(Math.random() * fortunes.length);
         let randomFortune = fortunes[randomIndex];
-      
         res.status(200).send(randomFortune);
     };
     
     function showMantras(req, res) {
+        res.status(200).send(mantras);
+    }
+
+    function deleteMantra (req, res) {
+        let index = mantras.findIndex(elem => elem.id === +req.params.id)
+        mantras.splice(index, 1)
         res.status(200).send(mantras);
     }
 
@@ -28,4 +33,5 @@ module.exports = {
     getCompliment,
     getFortune,
     showMantras,
+    deleteMantra,
 }
