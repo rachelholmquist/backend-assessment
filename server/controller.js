@@ -17,15 +17,28 @@ const fortunes = ["All the effort you are making will ultimately pay off.", "If 
         let randomFortune = fortunes[randomIndex];
         res.status(200).send(randomFortune);
     };
+
+    function addFortune (req, res) {
+        let newFortune = req.body.fortune;
+        fortunes.push(newFortune)
+        res.status(200).send('Thank you for your fortune ' + newFortune);
+    }
     
     function showMantras(req, res) {
         res.status(200).send(mantras);
     }
 
     function deleteMantra (req, res) {
-        let index = mantras.findIndex(elem => elem.id === +req.params.id)
-        mantras.splice(index, 1)
-        res.status(200).send(mantras);
+        console.log(req.params);
+        const {id} = req.params;
+        for(let i = 0; i < mantras.length; i++){
+            if(mantras[i].id === +id){
+                console.log(id);
+                mantras.splice(i, 1);
+                return res.status(200).send(mantras);
+            }
+        }
+        //res.status(400).send(mantras);
     }
 
 
@@ -34,4 +47,5 @@ module.exports = {
     getFortune,
     showMantras,
     deleteMantra,
+    addFortune
 }
