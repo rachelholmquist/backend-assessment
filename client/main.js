@@ -1,11 +1,12 @@
-const { default: axios } = require("axios");
-
-
 const complimentBtn = document.getElementById("complimentButton");
 const fortuneBtn = document.getElementById("fortuneButton");
+const addFortuneBtn = document.getElementById("addFortune");
+const addFortuneValue = document.getElementById("add");
 const mantraBtn = document.getElementById("mantraButton");
 const mantraList = document.getElementById("mantraList");
-const deleteMantraBtn = document.getElementById("deleteMantra");
+const deleteMantraDropdown = document.getElementById("mantraId");
+const errCallback = err => console.log(err);
+let mantras = [];
 
 const getCompliment = () => {
     axios.get("http://localhost:4000/api/compliment/")
@@ -39,10 +40,37 @@ const getMantras = () => {
 };
 mantraBtn.addEventListener('click', getMantras);
 
-const deleteMantra = () => {
-    axios.delete("http://localhost:4000/api/deleteMantra")
+const deleteMantra = () =>  {
+    axios.delete("http://localhost:4000/api/deleteMantra/" + deleteMantraDropdown.value)
     .then(res => {
-        alert("successfully deleted");
+        console.log(res);
+        //alert("successfully deleted");
     })
+    .catch(errCallback);
 }
-deleteMantraBtn.addEventListener('click', deleteMantra);
+// deleteMantraDropdown.addEventListener('onchange', deleteMantra);
+deleteMantraDropdown.onchange = deleteMantra;
+
+const displayMantras= () => {
+    axios.get("http://localhost:4000/api/mantras/")
+        .then(res => {
+            const data=res.data;
+            for(let i = 0; i < data.length; i++){
+                let option = document.createElement("option");
+                option.text = data[i].name;
+                option.value = data[i].id;
+                deleteMantraDropdown.appendChild(option);
+            }
+        });
+    }
+window.onload = displayMantras;
+
+const addFortune = () => {
+    console.log(addFortuneValue.value);
+    axios.post("http://localhost:4000/api/addFortune", {fortune: addFortuneValue.value})
+    .then(res => {
+        alert(res.data);
+    }).catch(errCallback);
+}
+
+addFortuneBtn.addEventListener('click', addFortune);

@@ -4,12 +4,15 @@
     <title>Back End Assessment</title>
   </head>
   <body class="container">
+    
     <button id="complimentButton">Get a compliment</button>
     <button id="fortuneButton">Get a fortune</button><br>
-    <!-- Add your own fortune to the mix: <input type="text" id="add"></input><button id="addFortune">Submit</button> -->
-    <button id="mantraButton">A list of mantras to start your day on a positive note</button><br>
-    <ul id="mantraList"></ul><br><br>Delete a mantra you don't like or have already used by entering the ID:<br>
-    <input type="text" id="idInput"></input><button id="deleteMantra">Delete</button>
+    Add your own fortune to the mix: <input type="text" id="add"></input><button id="addFortune">Submit</button><br>
+    <button id="mantraButton">Click for a list of mantras to start your day on a positive note</button><br>
+    <ul id="mantraList"></ul><br>   
+    Select a mantra to delete from the list: 
+    <select id="mantraId">
+    </select>
   
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
